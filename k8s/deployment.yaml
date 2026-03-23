@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app_alpha
+  labels:
+    app: app_alpha
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app_alpha
+  template:
+    metadata:
+      labels:
+        app: app_alpha
+    spec:
+      containers:
+        - name: cont1
+          image: 429722559165.dkr.ecr.ap-southeast-1.amazonaws.com/app_cicd:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+          env:
+            - name: ENV
+              value: "dev"
